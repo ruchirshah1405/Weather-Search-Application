@@ -1,0 +1,350 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<div class="container containersearch border border-dark">
+  <form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <div class ="row">
+      <div class="col text-center"><h1>Weather Search</h1></div>
+    </div>
+    <div class="row">
+      <div class = "col-sm-2">
+        <label for="Street" class="required">Street</label>
+      </div>
+      <div class = "col-sm-8">
+        <input type="text" class="form-control border border-dark" id="street" name = "street" (focusout)="validStreet()" [(ngModel)]="street" aria-describedby="street_name" placeholder="Enter Street Name" [disabled]="ischeck">      
+        <div class="text-danger" *ngIf="invalid_street">Please enter a street.</div>
+      </div>  
+    </div>
+    <div class ="row">
+        <div class = "col-sm-2">
+            <label for="City" class="required">City</label>
+        </div>
+        <div class = "col-sm-8">
+                  <input type="text" [matAutocomplete]="auto" class="form-control border border-dark" id="city" name="city" (focusout)="validCity()" [(ngModel)]="city" aria-describedby="city_name" placeholder="Enter City Name" (keyup)="onKey()" [disabled]="ischeck">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of autofill" [value]="option">
+                      {{option}}
+                    </mat-option>
+                </mat-autocomplete>
+              <div class="text-danger" *ngIf = "invalid_city">Please enter a city.</div>
+        </div>    
+    </div>
+    <div class ="row">
+        <div class="col-sm-2">
+            <label for="State" class="required">State</label>
+        </div>
+        <div class="col-sm-4">
+            <select id = "select" name ="state" [(ngModel)]="state" class="selectpicker form-control" [disabled]="ischeck">
+                <option value = 'state' selected="selected">Select State</option>
+                <option value="Alabama">Alabama</option>
+                      <option value="Alaska">Alaska</option>
+                      <option value="Arizona">Arizona</option>
+                      <option value="Arkansas">Arkansas</option>
+                      <option value="California">California</option>
+                      <option value="Colorado">Colorado</option>
+                      <option value="Connecticut">Connecticut</option>
+                      <option value="Delaware">Delaware</option>
+                      <option value="District of Columbia">District of Columbia</option>
+                      <option value="Florida">Florida</option>
+                      <option value="Georgia">Georgia</option>
+                      <option value="Hawaii">Hawaii</option>
+                      <option value="Idaho">Idaho</option>
+                      <option value="Illinois">Illinois</option>
+                      <option value="Indiana">Indiana</option>
+                      <option value="Iowa">Iowa</option>
+                      <option value="Kansas">Kansas</option>
+                      <option value="Kentucky">Kentucky</option>
+                      <option value="Louisiana">Louisiana</option>
+                      <option value="Maine">Maine</option>
+                      <option value="Maryland">Maryland</option>
+                      <option value="Massachusetts">Massachusetts</option>
+                      <option value="Michigan">Michigan</option>
+                      <option value="Minnesota">Minnesota</option>
+                      <option value="Mississippi">Mississippi</option>
+                      <option value="Missouri">Missouri</option>
+                      <option value="Montana">Montana</option>
+                      <option value="Nebraska">Nebraska</option>
+                      <option value="Nevada">Nevada</option>
+                      <option value="New Hampshire">New Hampshire</option>
+                      <option value="New Jersey">New Jersey</option>
+                      <option value="New Mexico">New Mexico</option>
+                      <option value="New York">New York</option>
+                      <option value="North Carolina">North Carolina</option>
+                      <option value="North Dakota">North Dakota</option>
+                      <option value="Ohio">Ohio</option>
+                      <option value="Oklahoma">Oklahoma</option>
+                      <option value="Oregon">Oregon</option>
+                      <option value="Pennsylvania">Pennsylvania</option>
+                      <option value="Rhode Island">Rhode Island</option>
+                      <option value="South Carolina">South Carolina</option>
+                      <option value="South Dakota">South Dakota</option>
+                      <option value="Tennessee">Tennessee</option>
+                      <option value="Texas">Texas</option>
+                      <option value="Utah">Utah</option>
+                      <option value="Vermont">Vermont</option>
+                      <option value="Virginia">Virginia</option>
+                      <option value="Washington">Washington</option>
+                      <option value="West Virginia">West Virginia</option>
+                      <option value="Wisconsin">Wisconsin</option>
+                      <option value="Wyoming">Wyoming</option>
+            </select>
+        </div>
+    </div>
+    <div class ="row">
+      <div class="col-sm-6"></div>
+        <div class="col-sm-6 form-group form-check checkbox1" >
+            <input type="checkbox" class="form-check-input" id="currentlocation" [(ngModel)]="ischeck" name="check" (change)="checkIs()">
+            <label class="form-check-label" for="currentlocation">Current location</label>
+          </div>
+    </div>
+      <div class ="row">
+          <div class="col-sm-12">
+              <button type="submit" class="btn btn1 border border-dark" [disabled]="isdisable()">
+                  <i class="material-icons" style="vertical-align:middle">
+                      search
+                  </i> 
+                  Search
+                </button>
+                <button type="button" class="btn btn1 border border-dark" (click)="clearAll()">
+                    <i class="material-icons" style="vertical-align:middle">
+                        clear_all
+                    </i> 
+                    Clear
+                  </button>
+            </div>
+      </div>
+  </div> 
+</form> 
+</div>
+
+<div class="container result_fav" id="result_fav">
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8 center1">
+      <button type="button" class="btn btnresult border border-dark" (click)="onresultclick()" *ngIf="isresult">Results</button>
+      <button type="button" class="btn btn1 border border-dark" (click)="onresultclick()" *ngIf="!isresult">Results</button>
+      <button type="button" class="btn btn1 border border-dark" (click)="createTable()" *ngIf="!favis">Favorites</button>
+      <button type="button" class="btn btnresult border border-dark" (click)="createTable()" *ngIf="favis">Favorites</button>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>
+<div class="alert alert-warning" role="alert" *ngIf="nodata" style="margin:0 auto;width:60%;">
+    Invalid Address
+</div>
+<div class="container progress_bar" *ngIf="process_bar">
+  <div class="progress">
+    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+  </div>
+</div>
+<div class="container" *ngIf="viewdata">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#current">Current</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#hourly">Hourly</a>
+    </li>
+    <li class="nav-item mr-auto p-2">
+      <a class="nav-link" data-toggle="tab" href="#weekly" (click)="onWeekly()">Weekly</a>
+    </li>
+    <li class="nav-item p-2">
+      <!-- <a class="nav-link" data-toggle="tab" href="#twitter" (click)="twitter()">Twitter</a> -->
+      <a class="twitter-share-button" href={{twitter_msg}} target="_blank" data-size="large"><img src="https://csci571.com/hw/hw8/Images/Twitter.png" class="twitter"></a>
+    </li>
+    <li class="nav-item p-2">
+      <a class="nav-link star" data-toggle="tab" href="#favr" (click)="fav()" >
+        <i class="material-icons" *ngIf="!isfav">star_border</i>
+      </a>
+      <a class="nav-link star" data-toggle="tab" href="#favr" (click)='del()' >
+          <i class="material-icons" style="color:#f8d556" *ngIf="isfav">star</i>
+        </a>
+    </li>
+  </ul>
+  
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane container active" id="current">
+        <div class="container">
+            <div class="container bcolor border border-dark">
+              <div class="row-md-12">
+                  <div class="font2">{{currentData["city"]}}</div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <div class="font1" style="color:#354d4e">{{currentData["timezone"]}}</div>
+                  <div class="fontt">{{currentData["temperature"]}}<img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" style="height: 0.3em; width: 0.3em;margin-bottom: 20%"><span>F</span></div>
+                  <div class="font1">{{currentData["summary"]}}</div>
+                </div>
+                <div class="col-6" style="text-align:center">
+                  <div><img src={{sealURL}} class="imgclass"></div>
+                </div>
+              </div>
+              <div class = "row">
+                <div class="col-2" *ngIf="!nohumi" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-16-512.png"  class="img_class" placement="top" ngbTooltip="Humidity">
+                  </div>
+                  <div class="row-2 text_class" *ngIf="!nohumi">
+                      {{currentData["humidity"]}}
+                  </div>
+                </div>
+                
+                <div class="col-2" *ngIf="!nopre" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-25-512.png" class="img_class" placement="top" ngbTooltip="Pressure">
+                  </div>
+                    <div class="row-2 text_class" *ngIf="!nopre">
+                        {{currentData["pressure"]}}
+                    </div>
+                </div>
+                
+                <div class="col-2" *ngIf="!nows" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-27-512.png" class="img_class" placement="top" ngbTooltip="Wind Speed">
+                  </div>
+                    <div class="row-2 text_class" *ngIf="!nows">
+                        {{currentData["windspeed"]}}
+                    </div>
+                </div>
+                
+                <div class="col-2" *ngIf="!novis" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-30-512.png" class="img_class"  placement="top" ngbTooltip="Visibility">
+                  </div>
+                    <div class="row-2 text_class" *ngIf="!novis">
+                        {{currentData["visibility"]}}
+                    </div>
+                </div>
+                
+                <div class="col-2" *ngIf="!novcc" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-28-512.png" class="img_class" placement="top" ngbTooltip="Cloud Cover">
+                  </div>
+                    <div class="row-2 text_class" *ngIf="!novcc">
+                        {{currentData["cloudcover"]}}
+                    </div>
+                </div>
+                
+                <div class="col-2" *ngIf="!noozo" style="text-align:center;">
+                  <div class="row-2">
+                    <img src = "https://cdn2.iconfinder.com/data/icons/weather-74/24/weather-24-512.png" class="img_class" placement="top" ngbTooltip="Ozone">
+                  </div>
+                    <div class="row-2 text_class" *ngIf="!noozo">
+                        {{currentData["ozone"]}}
+                    </div>
+                </div>
+                
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane container fade" id="hourly">
+      <div class = "card noborder" >
+        <div class = "card-body">
+          <div class="row">
+            <div class="col-sm-4">
+                <select id = "select" name ="chartof" class="selectpicker form-control" (change) ="changechart($event)">
+                    <option value = 'temperature' selected="selected">Temperature</option>
+                    <option value='pressure'>Pressure</option>
+                    <option value='humidity'>Humidity</option>
+                    <option value='ozone'>Ozone</option>
+                    <option value='visibility'>Visibility</option>
+                    <option value='windspeed'>Wind Speed</option>
+                </select>
+            </div>
+          </div>
+          <div>
+              <div style="display: block">
+                <canvas baseChart
+                        
+                        [datasets]="barChartData"
+                        [labels]="barChartLabels"
+                        [legend]="barChartLegend"
+                        [chartType]="barChartType"
+                        [options]="barChartOptions"
+                        >
+                </canvas>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane container fade" id="weekly">
+      <div class="card noborder">
+        <div class="card-body">
+          <div id="chartContainer" style="height: 370px; width: 100%;" data-toggle="modal" data-target="#myModal"></div>
+          <div class="modal fade" id="myModal">
+              <div class="modal-dialog modal_css">
+                <div class="modal-content ">
+                  <!-- Modal Header -->
+                  <div class="modal-header modelheaderbgcolor">
+                    <h4 class="modal-title">{{model_date}}</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  
+                  <!-- Modal body -->
+                  <div class="modal-body modelbody">
+                    <div class="row">
+                      <div class="col">
+                        <!-- data -->
+                        <div class="fontm1">{{currentData["city"]}}</div>
+                        <div class="fontm1">{{modal_temp}}<img src="https://cdn3.iconfinder.com/data/icons/virtual-notebook/16/button_shape_oval-512.png" class="modal_temp"><span>F</span></div>
+                        <div class="fontm2">{{modal_sum}}</div>
+                      </div>
+                      <div class="col modal_img">
+                          <div><img src={{modal_icon}} style="height:7em;width:7em;"></div>
+                        <!-- img -->
+                      </div>
+                    </div>
+                    <!-- <hr style="color:white;width: 2px;"> -->
+                    <div class="dash"></div>
+                   <div class = "row">
+                      <div class="col-sm-6"></div>
+                      <div class="col-sm-6">
+                        <p class="pad0">Precipitation:{{modal_pre}}</p>
+                        <p class="pad0">Change of Rain:{{modal_cor}}%</p>
+                        <p class="pad0">Wind Speed:{{modal_windspeed}}mph</p>
+                        <p class="pad0">Humidity:{{modal_hum}}%</p>
+                        <p class="pad0">Visibility:{{modal_vis}}miles</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="viewtable" >
+      <table class="table table-dark table-striped" *ngIf="!norec">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>City</th>
+          <th>State</th>
+          <th>Wish List</th>
+        </tr>
+      </thead>
+        <tbody>
+        <tr *ngFor="let s of tabledata; let i = index">
+          <td>{{i+1}}</td>
+          <td><img src='{{s["seal"]}}' style="height:3em;width:3em;"></td>
+          <td (click)="fromtable(s)" style="color: blue; cursor: pointer;"><span placement="bottom" ngbTooltip='{{s["data"][0]}}'>{{s["data"][0]}}</span></td>
+          <td>{{s["data"][1]}}</td>
+          <td>
+            <button type="button" class="btn btn1" (click)="deletelocalstorage(s)">
+                <i class="material-icons" style="color:#d2a641">delete</i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      </table>
+      <div class="alert alert-warning" role="alert" *ngIf="norec">
+          No Records
+      </div>
+</div>

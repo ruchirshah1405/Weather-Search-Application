@@ -1,0 +1,230 @@
+.containersearch{
+    margin: 0 auto; 
+    float: none; 
+    margin-bottom: 20px; 
+    margin-top: 50px;
+    /* max-width: 800px; */
+    width: 60%;
+    background-color: #6491ac;
+    color: white;
+    border-radius: 5px;
+    padding:50px;
+    box-shadow: 3px 3px 10px 3px grey;
+    /* padding-left: 100px; */
+}
+.required::after{
+    content:"*";color:red;
+}
+.row{
+    margin-bottom: 20px;
+}
+.btn1{
+    background: white;
+    color: grey;
+    margin-right: 20px;
+}
+.btnresult{
+    background: #6f91aa;
+    color:white;
+    margin-right:20px;
+}
+.result_fav{
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto; 
+    float: none; 
+    margin-bottom: 10px;
+}
+.progress_bar{
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto; 
+    float: none; 
+    /* margin-bottom: 10px; */
+}
+.font2{
+    font-size: 2vw !important;
+}
+.fontt{
+    font-size: 2.5vw;
+}
+.font1{
+    font-size: 1.35vw;
+}
+.bcolor{
+    background-color: #A7D0EE;
+    margin: 0 auto;
+    width: 50%;
+    padding: 17px;
+    border-radius: 5px;
+}
+.imgclass{
+    width: 80%;
+}
+.img_class{
+    height: 2em;
+    width: 2em;
+}
+
+.col-sm-2{
+    align-content: center;
+}
+.nav-tabs{
+    margin-bottom: 2%;
+}
+.modelheaderbgcolor{
+    background-color: #6f91ab;
+}
+.modelbody{
+    background-color: #a8d0ee;
+}
+.noborder{
+    border-style: none !important;
+}
+.twitter{
+    width: 25px;
+    height: 25px;
+}
+.nav-tabs > li.active > a {
+    color: #3c5a78;
+    font-size: 16px;
+}
+.nav-tabs > li > a {
+    color: #575757;
+}
+table{
+    text-align: center;
+    color: black;
+    background-color: #6f91aa;
+}
+/* .table-dark > thead > tr:nth-child(2n+1) > td, .table-dark > thead > tr:nth-child(2n+1) > th {
+    background-color: #A7D0EE;
+ } */
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #a7d0ee;
+ }
+.p-2{
+    padding: 0 !important;
+}
+.star{
+    padding: 0 !important;
+}
+.center1{
+    margin: 0 auto;
+    text-align: center;
+}
+.checkbox1{
+    margin-left: 15px;
+}
+.modal_css{
+    height: 60%;
+    zoom: 0.8;
+}
+.modal_temp{
+    height: 0.3em; 
+    width: 0.3em; 
+    margin-bottom: 20%;
+}
+.modal_img{
+    text-align:center; 
+    margin-bottom: 20px;
+}
+.img_class{
+    height: 2.25em;
+    width: 2.25em;
+}
+.text_class{
+    font-size: 1.35em;
+    /* margin-left: -10px; */
+}
+.fontm1{
+    font-size: 2vw;
+}
+.fontm2{
+    font-size: 1.7vw;
+}
+.pad0{
+    padding: 0;
+    margin: 0;
+}
+.dash{
+    text-align: center;
+    background-color: #80808038 !important;
+    height: 2px;
+    margin-bottom: 10px;
+}
+@media only screen and (max-width: 600px) {
+    /* body {
+      background-color: lightblue;
+    } */
+    .containersearch{
+        margin: 0 auto; 
+        float: none; 
+        margin-bottom: 20px; 
+        margin-top: 5px;
+        /* max-width: 800px; */
+        width: 95%;
+        height: 80%;
+        background-color: #6491ac;
+        color: white;
+        border-radius: 5px;
+        padding:25px;
+        /* zoom: 0.8; */
+    }
+    .bcolor{
+        background-color: #A7D0EE;
+        margin: 0 auto;
+        width: 90%;
+        /* zoom: 0.8; */
+    }
+    table{
+        text-align: center;
+        color: black;
+        background-color: #6f91aa;
+        margin: 0 auto;
+        width: 90%;
+    }
+    .font2{
+        font-size: 4vw !important;
+    }
+    .fontt{
+        font-size: 5.5vw;
+    }
+    .font1{
+        font-size: 3.5vw;
+    }
+    .imgclass{
+        width: 80%;
+    }
+    .checkbox1{
+        margin-left: 15px;
+    }
+    .modal_css{
+        height: 60%;
+        zoom: 0.8;
+    }
+    .modal_temp{
+        height: 0.4em; 
+        width: 0.4em; 
+        margin-bottom: 16%;
+    }
+    .modal_img{
+        text-align:center; 
+        margin-bottom: 20px;
+    }
+    .img_class{
+        height: 1.25em;
+        width: 1.25em;
+    }
+    .text_class{
+        font-size: 0.25em;
+        text-align: center;
+    }
+    .fontm1{
+        font-size: 8vw;
+    }
+    .fontm2{
+        font-size: 6vw;
+    }
+  }
+  
